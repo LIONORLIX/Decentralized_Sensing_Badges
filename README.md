@@ -1,5 +1,11 @@
 # Decentralized Sensing Badges
 
+## Project video
+
+[![Watch the project demonstration video](https://img.youtube.com/vi/fy3ZHzJYr6A/hqdefault.jpg)](https://www.youtube.com/watch?v=fy3ZHzJYr6A&t=1s)
+
+GitHub README files cannot safely play a YouTube video inline. Click the preview above to open the video on YouTube.
+
 Decentralized Sensing Badges is a wearable physical-computing project for community-led environmental sensing and data sharing. Each badge acts as a small sensing probe: it collects environmental information, sends the reading wirelessly to a nearby station, and expresses the data through a physical light display.
 
 The project explores how low-cost electronics, personal fabrication, and wearable design can support decentralized data collection. The badge is designed as both a sensing device and a personal object, allowing environmental data collection to become visible, accessible, and connected to individual expression.
@@ -21,7 +27,7 @@ A button on each node controls the interaction. The badge and station sketches c
 | [`02_model_sources/`](02_model_sources/) | Rhino 3D modeling source files |
 | [`03_3d_print_files/`](03_3d_print_files/) | STL meshes ready to import into a 3D-printing slicer |
 | [`04_development_reference_code/`](04_development_reference_code/) | Earlier communication experiments and course sketches |
-| [`05_circuit_documentation/`](05_circuit_documentation/) | Photos documenting circuit construction and prototype testing |
+| [`05_circuit_documentation/`](05_circuit_documentation/) | Wiring schematic, circuit presentation PDF, and prototype photos |
 
 ### Prototype Arduino code
 
@@ -46,7 +52,16 @@ The repository includes STL meshes rather than printer-specific G-code. Import a
 
 ### Circuit and prototype documentation
 
-The project does not contain a formal schematic or PCB layout. The following photos document the physical circuit design process and the main prototype tests:
+The project includes a wiring schematic for the two ESP8266 nodes, a PDF presentation with the circuit and prototype development, and photos documenting the physical circuit design process.
+
+| File | What it shows |
+|---|---|
+| [`wiring_schematics.jpg`](05_circuit_documentation/wiring_schematics.jpg) | Wiring schematic for the badge send end and station receive end. |
+| [`circuits_prototype_video.pdf`](05_circuit_documentation/circuits_prototype_video.pdf) | Seven-page circuit and prototype presentation, including the wiring schematic, development stages, and project video page. |
+
+![Wiring schematic for the send and receive ends](05_circuit_documentation/wiring_schematics.jpg)
+
+The prototype photographs are:
 
 | File | What it shows |
 |---|---|
@@ -102,7 +117,3 @@ Install the ESP8266 board package and these libraries before compiling:
 4. Replace the `PEER` address in each sketch with the MAC address of the other board.
 5. Flash both sketches and power the two nodes on the same ESP-NOW channel.
 6. Press the station button to display the received environmental value through the NeoPixel ring.
-
-## Project video
-
-[Watch the project demonstration video on YouTube](https://www.youtube.com/watch?v=fy3ZHzJYr6A&t=1s)
