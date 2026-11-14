@@ -2,9 +2,7 @@
 
 ## Project video
 
-[![Watch the project demonstration video](https://img.youtube.com/vi/fy3ZHzJYr6A/hqdefault.jpg)](https://www.youtube.com/watch?v=fy3ZHzJYr6A&t=1s)
-
-GitHub README files cannot safely play a YouTube video inline. Click the preview above to open the video on YouTube.
+[Watch the project demonstration video on YouTube](https://www.youtube.com/watch?v=fy3ZHzJYr6A&t=1s)
 
 Decentralized Sensing Badges is a wearable physical-computing project for community-led environmental sensing and data sharing. Each badge acts as a small sensing probe: it collects environmental information, sends the reading wirelessly to a nearby station, and expresses the data through a physical light display.
 
