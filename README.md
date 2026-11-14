@@ -1,71 +1,84 @@
-# Project Deliverables
+# Decentralized Sensing Badges
 
-Organized: 2026-11-14
+Decentralized Sensing Badges is a wearable physical-computing project for community-led environmental sensing and data sharing. Each badge acts as a small sensing probe: it collects environmental information, sends the reading wirelessly to a nearby station, and expresses the data through a physical light display.
 
-This directory collects the project files that are ready for delivery, further fabrication, or development reference. The original files remain in their original project locations; the files here are organized copies for submission and archiving.
+The project explores how low-cost electronics, personal fabrication, and wearable design can support decentralized data collection. The badge is designed as both a sensing device and a personal object, allowing environmental data collection to become visible, accessible, and connected to individual expression.
+
+## System overview
+
+The prototype has two wireless nodes:
+
+1. **Badge node** — an ESP8266 reads an MQ135 air-quality sensor and sends the sensor value over ESP-NOW.
+2. **Station node** — a second ESP8266 receives the value and maps it to the brightness and color of a 14-pixel NeoPixel ring.
+
+A button on each node controls the interaction. The badge and station sketches contain fixed peer MAC addresses that must be updated for the two devices being used.
+
+## Repository contents
+
+| Directory | Contents |
+|---|---|
+| [`01_final_code/`](01_final_code/) | Arduino sketches used by the final prototype |
+| [`02_model_sources/`](02_model_sources/) | Rhino 3D modeling source files |
+| [`03_3d_print_files/`](03_3d_print_files/) | STL meshes ready to import into a 3D-printing slicer |
+| [`04_development_reference_code/`](04_development_reference_code/) | Earlier communication experiments and course sketches |
+
+### Final Arduino code
+
+| File | Description |
+|---|---|
+| [`01_final_code/badge_send/badge_send.ino`](01_final_code/badge_send/badge_send.ino) | Badge node. Reads MQ135 data and sends it with WifiEspNow. |
+| [`01_final_code/station_recieve/station_recieve.ino`](01_final_code/station_recieve/station_recieve.ino) | Station node. Receives the value and drives the NeoPixel ring. |
+
+The filename `station_recieve.ino` keeps the spelling used in the original project.
+
+### 3D modeling and printing files
+
+| File | Description |
+|---|---|
+| [`02_model_sources/base.3dm`](02_model_sources/base.3dm) | Base or enclosure model. |
+| [`02_model_sources/Badge.3dm`](02_model_sources/Badge.3dm) | Main badge model. |
+| [`02_model_sources/Badge_test.3dm`](02_model_sources/Badge_test.3dm) | Test badge model. |
+| [`03_3d_print_files/Badge_Circle.stl`](03_3d_print_files/Badge_Circle.stl) | Circular badge mesh for slicing. |
+| [`03_3d_print_files/Badge_test.stl`](03_3d_print_files/Badge_test.stl) | Test badge mesh for slicing. |
+
+The repository includes STL meshes rather than printer-specific G-code. Import an STL into the slicer for the target printer, configure the material, layer height, infill, supports, and build plate, then export the required machine file.
+
+## Hardware and software
+
+### Hardware
+
+- Two ESP8266 boards
+- MQ135 air-quality sensor
+- 14-pixel NeoPixel ring
+- One button for the badge node
+- One button for the station node
+- 3D-printed badge enclosure
+
+### Pin assignments in the final sketches
+
+- Badge MQ135 sensor: GPIO13 / D7
+- Badge button: GPIO14 / D5
+- Station NeoPixel ring: GPIO13 / D7
+- Station button: GPIO14 / D5
+
+### Arduino libraries
+
+Install the ESP8266 board package and these libraries before compiling:
+
+- `WifiEspNow`
+- `MQ135`
+- `Adafruit NeoPixel`
+
+## Running the prototype
+
+1. Install the ESP8266 board package and the libraries listed above.
+2. Open `badge_send/badge_send.ino` and `station_recieve/station_recieve.ino` in the Arduino IDE.
+3. Flash one sketch to each ESP8266 board.
+4. Read each board's MAC address from the serial output.
+5. Replace the `PEER` address in each sketch with the MAC address of the other board.
+6. Flash both sketches again and power the two nodes on the same ESP-NOW channel.
+7. Press the station button to display the received environmental value through the NeoPixel ring.
 
 ## Project video
 
 [Watch the project demonstration video on YouTube](https://www.youtube.com/watch?v=fy3ZHzJYr6A&t=1s)
-
-## Directory structure
-
-```text
-project_deliverables/
-|-- 01_final_code/                 # Arduino code used by the final prototype
-|-- 02_model_sources/              # Rhino modeling source files (.3dm)
-|-- 03_3d_print_files/             # Printable meshes for import into a slicer (.stl)
-`-- 04_development_reference_code/ # Earlier experiments and course sketches
-```
-
-## 1. Final delivery code
-
-| File | Purpose | Original path |
-|---|---|---|
-| [`badge_send/badge_send.ino`](01_final_code/badge_send/badge_send.ino) | Badge node: reads environmental data from an MQ135 sensor and sends it with WifiEspNow | `final/LO2/code/badge_send/badge_send.ino` |
-| [`station_recieve/station_recieve.ino`](01_final_code/station_recieve/station_recieve.ino) | Station node: receives the data and displays it with a 14-pixel NeoPixel ring | `final/LO2/code/station_recieve/station_recieve.ino` |
-
-Identical copies of both sketches also exist under `final/xiang_li_23009641/LO2/code/`. Only one copy of each sketch is included here to avoid maintaining duplicate delivery files.
-
-### Before flashing
-
-1. Open each `.ino` file from its own folder in the Arduino IDE.
-2. Install and select the ESP8266 board package and the required libraries: `WifiEspNow`, `MQ135`, and `Adafruit NeoPixel`.
-3. Update the `PEER` address in both sketches with the MAC address of the other device.
-4. The badge node uses GPIO13 (D7) for the MQ135 sensor and GPIO14 (D5) for the button. The station node uses GPIO13 (D7) for the NeoPixel ring and GPIO14 (D5) for the button.
-
-## 2. Modeling source files
-
-| File | Intended use | Original path |
-|---|---|---|
-| [`base.3dm`](02_model_sources/base.3dm) | Base or enclosure model | `fab/base.3dm` |
-| [`Badge.3dm`](02_model_sources/Badge.3dm) | Main badge model | `fab/Badge.3dm` |
-| [`Badge_test.3dm`](02_model_sources/Badge_test.3dm) | Test badge model | `fab/Badge_test.3dm` |
-
-## 3. 3D printing files
-
-| File | Status | Original path |
-|---|---|---|
-| [`Badge_Circle.stl`](03_3d_print_files/Badge_Circle.stl) | Badge mesh ready for slicer import | `fab/Badge_Circle.stl` |
-| [`Badge_test.stl`](03_3d_print_files/Badge_test.stl) | Test mesh ready for slicer import | `fab/Badge_test.stl` |
-
-No `.gcode`, `.gco`, `.3mf`, or other exported slicing output was found in the project. The two `.stl` files are pre-slicing meshes. Import them into the slicer for the target printer, set the material, layer height, infill, and supports, then export the printer-specific G-code.
-
-## 4. Development reference code
-
-`04_development_reference_code/` contains 12 non-final Arduino sketches copied with their original relative paths:
-
-- `Board_communication/`: DHT11, LCD, button, and communication experiments.
-- `ESP32_communication/`: ESP-NOW master/slave communication and MAC-address experiments.
-- `ESP_LED/`: humidity-driven LED experiment.
-- `pcomp_project/`: ESP8266 DHT11 and LCD tests.
-- `sketch_oct15a/`, `week3course/`, and `week4course/`: earlier course exercises.
-
-These files are kept for development history and reference. Use the sketches in `01_final_code/` for the final prototype.
-
-## File verification
-
-SHA-256 checksums for the final code copies:
-
-- `badge_send.ino`: `7c22144852c1237cb0d9e559f76a4d15563ca796be1d363895b33ffbaebf3d73`
-- `station_recieve.ino`: `e0494491e1d788a0714a15f89c3bdcfa646450b8b786f74467a2fc49b9015606`
