@@ -8,7 +8,7 @@ The project explores how low-cost electronics, personal fabrication, and wearabl
 
 The prototype has two wireless nodes:
 
-1. **Badge node** — an ESP8266 reads an MQ135 air-quality sensor and sends the sensor value over ESP-NOW.
+1. **Badge node** — an ESP8266 reads an MQ135 air-quality sensor and sends an air-quality-related value over ESP-NOW.
 2. **Station node** — a second ESP8266 receives the value and maps it to the brightness and color of a 14-pixel NeoPixel ring.
 
 A button on each node controls the interaction. The badge and station sketches contain fixed peer MAC addresses that must be updated for the two devices being used.
@@ -17,17 +17,18 @@ A button on each node controls the interaction. The badge and station sketches c
 
 | Directory | Contents |
 |---|---|
-| [`01_final_code/`](01_final_code/) | Arduino sketches used by the final prototype |
+| [`01_prototype_code/`](01_prototype_code/) | Arduino sketches used by the working prototype |
 | [`02_model_sources/`](02_model_sources/) | Rhino 3D modeling source files |
 | [`03_3d_print_files/`](03_3d_print_files/) | STL meshes ready to import into a 3D-printing slicer |
 | [`04_development_reference_code/`](04_development_reference_code/) | Earlier communication experiments and course sketches |
+| [`05_circuit_documentation/`](05_circuit_documentation/) | Photos documenting circuit construction and prototype testing |
 
-### Final Arduino code
+### Prototype Arduino code
 
 | File | Description |
 |---|---|
-| [`01_final_code/badge_send/badge_send.ino`](01_final_code/badge_send/badge_send.ino) | Badge node. Reads MQ135 data and sends it with WifiEspNow. |
-| [`01_final_code/station_recieve/station_recieve.ino`](01_final_code/station_recieve/station_recieve.ino) | Station node. Receives the value and drives the NeoPixel ring. |
+| [`01_prototype_code/badge_send/badge_send.ino`](01_prototype_code/badge_send/badge_send.ino) | Badge node. Reads MQ135 data and sends it with WifiEspNow. |
+| [`01_prototype_code/station_recieve/station_recieve.ino`](01_prototype_code/station_recieve/station_recieve.ino) | Station node. Receives the value and drives the NeoPixel ring. |
 
 The filename `station_recieve.ino` keeps the spelling used in the original project.
 
@@ -43,6 +44,30 @@ The filename `station_recieve.ino` keeps the spelling used in the original proje
 
 The repository includes STL meshes rather than printer-specific G-code. Import an STL into the slicer for the target printer, configure the material, layer height, infill, supports, and build plate, then export the required machine file.
 
+### Circuit and prototype documentation
+
+The project does not contain a formal schematic or PCB layout. The following photos document the physical circuit design process and the main prototype tests:
+
+| File | What it shows |
+|---|---|
+| [`prototype_01_textile_button_circuit.jpeg`](05_circuit_documentation/prototype_01_textile_button_circuit.jpeg) | Testing conductive textile, buttons, LEDs, and an ESP32 board. |
+| [`prototype_02_badge_analog_reading.jpeg`](05_circuit_documentation/prototype_02_badge_analog_reading.jpeg) | Testing the badge form and analog sensor readings. |
+| [`prototype_03_sensor_system_test.jpeg`](05_circuit_documentation/prototype_03_sensor_system_test.jpeg) | Testing the sensor, battery, textile connections, and system stability. |
+| [`prototype_04_tpu_wearable_circuit.jpeg`](05_circuit_documentation/prototype_04_tpu_wearable_circuit.jpeg) | Moving from textile experiments to TPU 3D-printed wearable circuits. |
+| [`prototype_05_soldered_badge_circuit.jpeg`](05_circuit_documentation/prototype_05_soldered_badge_circuit.jpeg) | Completed soldered circuit and assembled wearable badge. |
+
+<p align="center">
+  <img src="05_circuit_documentation/prototype_01_textile_button_circuit.jpeg" alt="Textile button circuit prototype" width="48%">
+  <img src="05_circuit_documentation/prototype_02_badge_analog_reading.jpeg" alt="Badge analog reading prototype" width="48%">
+</p>
+<p align="center">
+  <img src="05_circuit_documentation/prototype_03_sensor_system_test.jpeg" alt="Sensor and system test" width="48%">
+  <img src="05_circuit_documentation/prototype_04_tpu_wearable_circuit.jpeg" alt="TPU wearable circuit prototype" width="48%">
+</p>
+<p align="center">
+  <img src="05_circuit_documentation/prototype_05_soldered_badge_circuit.jpeg" alt="Soldered badge circuit" width="48%">
+</p>
+
 ## Hardware and software
 
 ### Hardware
@@ -54,7 +79,7 @@ The repository includes STL meshes rather than printer-specific G-code. Import a
 - One button for the station node
 - 3D-printed badge enclosure
 
-### Pin assignments in the final sketches
+### Pin assignments in the prototype sketches
 
 - Badge MQ135 sensor: GPIO13 / D7
 - Badge button: GPIO14 / D5
@@ -73,11 +98,10 @@ Install the ESP8266 board package and these libraries before compiling:
 
 1. Install the ESP8266 board package and the libraries listed above.
 2. Open `badge_send/badge_send.ino` and `station_recieve/station_recieve.ino` in the Arduino IDE.
-3. Flash one sketch to each ESP8266 board.
-4. Read each board's MAC address from the serial output.
-5. Replace the `PEER` address in each sketch with the MAC address of the other board.
-6. Flash both sketches again and power the two nodes on the same ESP-NOW channel.
-7. Press the station button to display the received environmental value through the NeoPixel ring.
+3. Read each board's MAC address from the serial output.
+4. Replace the `PEER` address in each sketch with the MAC address of the other board.
+5. Flash both sketches and power the two nodes on the same ESP-NOW channel.
+6. Press the station button to display the received environmental value through the NeoPixel ring.
 
 ## Project video
 
